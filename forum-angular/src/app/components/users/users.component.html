@@ -1,0 +1,35 @@
+<div class="mt-8" *ngIf="users">
+  <h1 class="text-3xl font-bold mb-2">Users</h1>
+  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div
+      *ngFor="let user of users"
+      class="bg-slate-100 border-2 rounded p-3 shadow-md"
+    >
+      <div class="flex gap-3">
+        <img
+          *ngIf="user.image"
+          class="w-14 h-14 rounded-full object-cover"
+          src="{{ url + '/get-avatar/' + user.image }}"
+        />
+        <img
+          *ngIf="!user.image"
+          class="w-14 h-14 rounded-full object-cover"
+          src="/assets/images/no-image.png"
+        />
+        <div>
+          <h3 class="text-lg font-semibold mb-2">
+            {{ user?.name + " " + user?.surname }}
+          </h3>
+          <a
+            routerLink="/profile/{{ user._id }}"
+            class="text-sm bg-lime-700 hover:bg-lime-600 text-white py-1 px-2 rounded"
+            >Go to profile</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!users" class="w-full flex justify-center items-center">
+  <img src="/assets/images/loader.gif" />
+</div>

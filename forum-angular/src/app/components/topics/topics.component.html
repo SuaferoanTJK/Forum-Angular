@@ -1,0 +1,65 @@
+<div class="my-7" *ngIf="topics">
+  <h1 class="text-4xl text-center font-bold">{{ page_title }}</h1>
+  <div
+    class="mt-5 md:w-2/3 lg:w-1/2 mx-auto text-sm font-medium text-gray-900 bg-white rounded-lg"
+  >
+    <!-- Blog List -->
+    <div
+      *ngFor="let topic of topics"
+      class="px-4 py-2 flex justify-between items-center border-b-2"
+    >
+      <div class="flex flex-col">
+        <h3 class="block w-full text-gray-700 text-xl mb-2">
+          <a
+            routerLink="/topic/{{ topic._id }}"
+            class="cursor-pointer hover:underline"
+            >{{ topic.title }}</a
+          >
+        </h3>
+        <div class="flex gap-1">
+          <span class="bg-slate-500 rounded px-2 py-1 text-xs text-white">{{
+            topic.user.name + " " + topic.user.surname
+          }}</span>
+          <span class="px-2 py-1 text-xs text-slate-400">{{
+            getFormat(topic.date)
+          }}</span>
+        </div>
+      </div>
+      <a
+        routerLink="/topic/{{ topic._id }}"
+        class="float-right bg-slate-300 hover:bg-slate-400 hover:text-white p-3 rounded"
+        >Read</a
+      >
+    </div>
+    <!-- Pagination -->
+    <nav class="mt-5" *ngIf="number_pages?.length > 1">
+      <ul class="inline-flex -space-x-px">
+        <li>
+          <a
+            routerLink="/topics/{{ prev_page }}"
+            class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            >&laquo;</a
+          >
+        </li>
+        <li>
+          <a
+            *ngFor="let num of number_pages"
+            routerLink="/topics/{{ num }}"
+            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            >{{ num }}</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/topics/{{ next_page }}"
+            class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            >&raquo;</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<div *ngIf="!topics" class="w-full flex justify-center items-center">
+  <img src="/assets/images/loader.gif" />
+</div>

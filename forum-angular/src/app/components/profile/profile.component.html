@@ -1,0 +1,45 @@
+<div class="my-7" *ngIf="user && topics">
+  <div class="flex justify-center">
+    <img
+      *ngIf="user.image"
+      class="w-14 h-14 rounded-full object-cover"
+      src="{{ url + '/get-avatar/' + user.image }}"
+    />
+    <img
+      *ngIf="!user.image"
+      class="w-14 h-14 rounded-full object-cover"
+      src="/assets/images/no-image.png"
+    />
+  </div>
+  <h1 class="text-4xl text-center font-bold">{{ page_title }}</h1>
+  <div
+    class="mt-5 md:w-2/3 lg:w-1/2 mx-auto text-sm font-medium text-gray-900 bg-white rounded-lg"
+  >
+    <!-- Blog List -->
+    <div
+      *ngFor="let topic of topics"
+      class="px-4 py-2 flex justify-between items-center border-b-2"
+    >
+      <div class="flex flex-col">
+        <h3 class="block w-full text-gray-700 text-xl mb-1">
+          <a
+            routerLink="/topic/{{ topic._id }}"
+            class="cursor-pointer hover:underline"
+            >{{ topic?.title }}</a
+          >
+        </h3>
+        <span class="py-1 text-xs text-slate-400">{{
+          getFormat(topic?.date)
+        }}</span>
+      </div>
+      <a
+        routerLink="/topic/{{ topic._id }}"
+        class="float-right bg-slate-300 hover:bg-slate-400 hover:text-white p-3 rounded"
+        >Read</a
+      >
+    </div>
+  </div>
+</div>
+<div *ngIf="!user || !topics" class="w-full flex justify-center items-center">
+  <img src="/assets/images/loader.gif" />
+</div>
